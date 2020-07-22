@@ -1,0 +1,16 @@
+# Main Server Project
+
+# Install NuGet Packages
+Dapper v1.50.5
+Microsoft.Extensions.Configuration v2.2.0
+Microsoft.Extensions.Configuration.json v2.2.0
+Microsoft.Extensions.Configuration.Abstractions v2.2.0
+Microsoft.Extensions.DependencyInjection v2.2.0
+Microsoft.Extensions.DependencyInjection.Abstractions v2.2.0
+Microsoft.Extensions.Logging v2.2.0
+Microsoft.Extensions.Logging.Console v2.2.0
+NETStandard.Library v2.0.2
+MySQL.Data v8.0.13
+Newtonsoft.Json v12.0.1
+Nlog v4.5.11
+NLog.Config v4.5.11
