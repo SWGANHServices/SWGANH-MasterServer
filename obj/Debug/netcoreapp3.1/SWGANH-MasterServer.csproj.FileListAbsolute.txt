@@ -36,3 +36,4 @@ C:\Users\johnr\Documents\GitHub\SWGANH-MasterServer\bin\Debug\netcoreapp3.1\Syst
 C:\Users\johnr\Documents\GitHub\SWGANH-MasterServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\johnr\Documents\GitHub\SWGANH-MasterServer\bin\Debug\netcoreapp3.1\NLog.dll
 C:\Users\johnr\Documents\GitHub\SWGANH-MasterServer\bin\Debug\netcoreapp3.1\NLog.config
+C:\Users\johnr\Documents\GitHub\SWGANH-MasterServer\obj\Debug\netcoreapp3.1\SWGANH-MasterServer.csproj.CoreCompileInputs.cache

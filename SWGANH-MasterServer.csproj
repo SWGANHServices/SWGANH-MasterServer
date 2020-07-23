@@ -23,9 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\" />
     <Folder Include="Logs\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
