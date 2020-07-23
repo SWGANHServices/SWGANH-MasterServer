@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "/OoX/cuCl/b83IuRwB7V/h0rs7k9EKGjg1J46rtJ3CH0CYSqihqjsHSpYsMj75IoVBLs06yfuH62c2xMmPQmHQ==",
+  "dgSpecHash": "/IIyh9MjNh5tIC1+Eno2OJMJauBnunUBRCndKRBG2xyc/z6W60jxyTzFCCUY+xIWhOJaJkr0Sh3bPmdHlfWoHg==",
   "success": true,
   "projectFilePath": "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-MasterServer\\SWGANH-MasterServer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\johnr\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\johnr\\.nuget\\packages\\dapper\\1.50.5\\dapper.1.50.5.nupkg.sha512",
     "C:\\Users\\johnr\\.nuget\\packages\\google.protobuf\\3.5.1\\google.protobuf.3.5.1.nupkg.sha512",
     "C:\\Users\\johnr\\.nuget\\packages\\microsoft.extensions.configuration\\2.2.0\\microsoft.extensions.configuration.2.2.0.nupkg.sha512",

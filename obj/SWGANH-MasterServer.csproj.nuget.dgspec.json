@@ -4,6 +4,84 @@
     "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-MasterServer\\SWGANH-MasterServer.csproj": {}
   },
   "projects": {
+    "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-Core\\SWGANH-Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-Core\\SWGANH-Core.csproj",
+        "projectName": "SWGANH-Core",
+        "projectPath": "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-Core\\SWGANH-Core.csproj",
+        "packagesPath": "C:\\Users\\johnr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\johnr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "BCrypt.Net-Core": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Logging.Console": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-MasterServer\\SWGANH-MasterServer.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -29,7 +107,11 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-Core\\SWGANH-Core.csproj": {
+                "projectPath": "C:\\Users\\johnr\\Documents\\GitHub\\SWGANH-Core\\SWGANH-Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
