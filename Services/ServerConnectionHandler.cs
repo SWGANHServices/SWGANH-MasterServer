@@ -53,5 +53,17 @@ namespace SWGANH_MasterServer.Services
                 }, connection.Writer);
             }
         }
+
+        [PackageHandler(CommunicationPackage.RACE_REQUEST)]
+        public void HandleRaceSelection(ClientConnection connection, RaceRequestPackage parsedObjectData)
+        {
+            logger.LogInformation("Race Request: ");
+            logger.LogInformation($"Race Selected: {parsedObjectData.RaceID}");
+
+            packageParser.ParserPackageToStream(new RaceResponsePackage
+            {
+                RaceID = (int)parsedObjectData.RaceID,
+            }, connection.Writer);
+        }
     }
 }
