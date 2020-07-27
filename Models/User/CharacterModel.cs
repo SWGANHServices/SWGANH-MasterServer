@@ -10,7 +10,8 @@ namespace SWGANH_MasterServer.Models.User
 
         public int UserId { get; set; }
         public string CharName { get; set; }
+        public string UmaData { get; set; }
 
-        public string Class { get; set; }
+        //public string Class { get; set; }
     }
 }

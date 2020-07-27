@@ -2,6 +2,7 @@
 using Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts;
 using Microsoft.Extensions.Logging;
 using SWGANH_Core.PackageParser;
+using SWGANH_Core.PackageParser.PackageImplimentations;
 using SWGANH_MasterServer.Service.ServiceModels;
 using SWGANH_MasterServer.Services;
 using System;
@@ -91,5 +92,90 @@ namespace SWGANH_MasterServer
             };
             clientPackageReceiverThread.Start();
         }
+
+        private int recievedPackageInterationCounter = 0;
+        private List<ClientConnection> invalidConnections = new List<ClientConnection>();
+
+        private async void ReceivePackage()
+        {
+            try
+            {
+                logger.LogInformation("NetworkService.receivePackage thread sucessfully started");
+                while(Running)
+                {
+                    await Task.Delay(1);
+                    if(Running)
+                    {
+                        lock(AddRemoveLocker)
+                        {
+                            if(++recievedPackageInterationCounter == 1000)
+                            {
+                                recievedPackageInterationCounter = 0;
+                                foreach(var client in ClientConnections)
+                                {
+                                    try
+                                    {
+                                        packageParser.ParserPackageToStream(new KeepAlivePackage(), client.Writer);
+                                    }
+                                    catch(Exception)
+                                    {
+                                        invalidConnections.Add(client);
+                                        logger.LogInformation("KeepAlive Exception");
+                                    }
+                                }
+                            }
+                            if(invalidConnections.Count > 0)
+                            {
+                                foreach(var conn in invalidConnections)
+                                {
+                                    ClientConnections.Remove(conn);
+                                }
+                                invalidConnections.Clear();
+                            }
+                        }
+                        var clientConArr = ClientConnections.ToArray();
+                        foreach(var client in clientConArr)
+                        {
+                            if(client.AvailableBytes > 0)
+                            {
+                                logger.LogInformation($"Package from Client {client.ConnectionId}");
+                                var package = packageParser.ParserPackageFromStream(client.Reader);
+                                packageDispatcher.DispatchPackage(package, client);
+                            }
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                logger.LogInformation("Server Stopped");
+            }
+        }
+
+        public void Stop()
+        {
+            if(listenerWorkerThread == null)
+            {
+                return; // Always stop
+            }
+            Running = false;
+            listenerWorkerThread.Abort();
+            listenerWorkerThread = null;
+            clientPackageReceiverThread.Abort();
+            clientPackageReceiverThread = null;
+            tcpListener.Stop();
+        }
+
+        protected virtual void OnClientConnected(TcpClient connection)
+        {
+            ClientConnected?.Invoke(connection);
+            var client = new ClientConnection(Guid.NewGuid(), connection);
+            lock(AddRemoveLocker)
+            {
+                ClientConnections.Add(client);
+            }
+            logger.LogInformation($"New Client Connected Guid: {client.ConnectionId}");
+        }
+
     }
 }

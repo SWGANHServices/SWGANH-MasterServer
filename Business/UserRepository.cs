@@ -31,7 +31,7 @@ namespace SWGANH_MasterServer.Business
         {
             using (IDbConnection dbConnection = _connection)
             {
-                string query = @"INSERT INTO Users (User, password, email) VALUES ( @UserName, @Password, @EmailAddress)";
+                const string query = @"INSERT INTO Users (User, password, email) VALUES ( @UserName, @Password, @EmailAddress)";
 
                 var result = dbConnection.Execute(query, new { UserName = user, Password = Encryption.HashPassword(password), EmailAddress = email });
             }
@@ -61,7 +61,7 @@ namespace SWGANH_MasterServer.Business
         {
             using (IDbConnection dbConnection = _connection)
             {
-                string query = @"SELECT * FROM User WHERE username=@username AND active='1'";
+                const string query = @"SELECT * FROM User WHERE username=@username AND active='1'";
                 dbConnection.Open();
 
                 var User = dbConnection.Query<UserModel>(query, new { UserName = username }).FirstOrDefault();
@@ -90,7 +90,7 @@ namespace SWGANH_MasterServer.Business
         {
             using (IDbConnection dbConnection = _connection)
             {
-                string query = @"SELECT * FROM User WHERE username=@username AND active='1'";
+                const string query = @"SELECT * FROM User WHERE username=@username AND active='1'";
                 dbConnection.Open();
 
                 var User = dbConnection.Query<UserModel>(query, new { UserName = username }).FirstOrDefault();

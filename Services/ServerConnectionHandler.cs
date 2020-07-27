@@ -46,7 +46,7 @@ namespace SWGANH_MasterServer.Services
             }
             else
             {
-                packageParser.ParserPackageToStream(new LoginResponcePackage
+                packageParser.ParserPackageToStream(new LoginResponsePackage
                 {
                     IsValid = true
 
@@ -54,15 +54,15 @@ namespace SWGANH_MasterServer.Services
             }
         }
 
-        [PackageHandler(CommunicationPackage.RACE_REQUEST)]
-        public void HandleRaceSelection(ClientConnection connection, RaceRequestPackage parsedObjectData)
+        [PackageHandler(CommunicationPackage.REALM_REQUEST)]
+        public void HandleRaceSelection(ClientConnection connection, RealmRequestPackage parsedObjectData)
         {
             logger.LogInformation("Race Request: ");
-            logger.LogInformation($"Race Selected: {parsedObjectData.RaceID}");
+            logger.LogInformation($"Race Selected: {parsedObjectData.RealmID}");
 
-            packageParser.ParserPackageToStream(new RaceResponsePackage
+            packageParser.ParserPackageToStream(new RealmResponsePackage
             {
-                RaceID = (int)parsedObjectData.RaceID,
+                RealmID = (int)parsedObjectData.RealmID,
             }, connection.Writer);
         }
     }
