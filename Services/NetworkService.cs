@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.PatternContexts;
 using Microsoft.Extensions.Logging;
+using SWGANH_Core;
 using SWGANH_Core.PackageParser;
 using SWGANH_Core.PackageParser.PackageImplimentations;
-using SWGANH_MasterServer.Service.ServiceModels;
+using SWGANH_Core.Server;
 using SWGANH_MasterServer.Services;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace SWGANH_MasterServer
     {
         readonly object AddRemoveLocker = new object();
 
-        private List<ClientConnection> ClientConnections = new List<ClientConnection>();
+        private List<NetworkConnection> ClientConnections = new List<NetworkConnection>();
 
         private TcpListener tcpListener;
         private Thread listenerWorkerThread;
@@ -30,11 +31,11 @@ namespace SWGANH_MasterServer
         public ILogger logger;
         private readonly IServiceProvider serviceProvider;
         private readonly IPackageParser packageParser;
-        private readonly IPackageDispatcher packageDispatcher;
+        private readonly IServerPackageDispatcher packageDispatcher;
 
         public NetworkService(IConfigurationRoot config, ILogger<NetworkService> logger,
             IServiceProvider serviceProvider, IPackageParser packageParser,
-            IPackageDispatcher packageDispatcher)
+            IServerPackageDispatcher packageDispatcher)
         {
             tcpListener = new TcpListener(IPAddress.Parse(config.GetValue<string>("host")),
                 config.GetValue<int>("port"));
@@ -94,7 +95,7 @@ namespace SWGANH_MasterServer
         }
 
         private int recievedPackageInterationCounter = 0;
-        private List<ClientConnection> invalidConnections = new List<ClientConnection>();
+        private List<NetworkConnection> invalidConnections = new List<NetworkConnection>();
 
         private async void ReceivePackage()
         {
@@ -169,7 +170,7 @@ namespace SWGANH_MasterServer
         protected virtual void OnClientConnected(TcpClient connection)
         {
             ClientConnected?.Invoke(connection);
-            var client = new ClientConnection(Guid.NewGuid(), connection);
+            var client = new NetworkConnection(Guid.NewGuid(), connection);
             lock(AddRemoveLocker)
             {
                 ClientConnections.Add(client);

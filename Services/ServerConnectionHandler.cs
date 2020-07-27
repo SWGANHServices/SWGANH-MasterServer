@@ -3,11 +3,10 @@ using SWGANH_Core;
 using SWGANH_Core.PackageParser;
 using SWGANH_Core.PackageParser.PackageImplimentations;
 using SWGANH_MasterServer.Business;
-using SWGANH_MasterServer.Service.ServiceModels;
 
 namespace SWGANH_MasterServer.Services
 {
-    public class ServerConnectionHandler : ConnectionHandlerBase<ClientConnection>
+    public class ServerConnectionHandler : ConnectionHandlerBase<NetworkConnection>
     {
 
         private readonly ILogger<ServerConnectionHandler> logger;
@@ -30,13 +29,13 @@ namespace SWGANH_MasterServer.Services
         }
 
 
-        protected override void HandleUnknownPackage(ClientConnection connection, object ParsedData, uint type)
+        protected override void HandleUnknownPackage(NetworkConnection connection, object ParsedData, uint type)
         {
             throw new System.NotImplementedException();
         }
 
         [PackageHandler(CommunicationPackage.LOGIN_REQUEST)]
-        public void HandleLogin(ClientConnection connection, LoginRequestPackage parsedObjectData)
+        public void HandleLogin(NetworkConnection connection, LoginRequestPackage parsedObjectData)
         {
             logger.LogInformation("Login Request");
             logger.LogInformation($"Login DATA User: {parsedObjectData.Username} PW: {parsedObjectData.Password}");
@@ -62,7 +61,7 @@ namespace SWGANH_MasterServer.Services
         }
 
         [PackageHandler(CommunicationPackage.REALM_REQUEST)]
-        public void HandleRaceSelection(ClientConnection connection, RealmRequestPackage parsedObjectData)
+        public void HandleRaceSelection(NetworkConnection connection, RealmRequestPackage parsedObjectData)
         {
             logger.LogInformation("Race Request: ");
             logger.LogInformation($"Race Selected: {parsedObjectData.RealmID}");
@@ -74,7 +73,7 @@ namespace SWGANH_MasterServer.Services
         }
 
         [PackageHandler(CommunicationPackage.CHAR_REQUEST)]
-        public void HandleCharacterCreation(ClientConnection connection, CharacterCreationRequestPackage parsedObjectData)
+        public void HandleCharacterCreation(NetworkConnection connection, CharacterCreationRequestPackage parsedObjectData)
         {
             logger.LogInformation($"Character Creation Request From {authStore[connection.ConnectionId]}");
             if(CharacterRepo.CharExists(parsedObjectData.CharName))

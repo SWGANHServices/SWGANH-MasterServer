@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="Services\ServiceModels\" />
   </ItemGroup>
 
   <ItemGroup>

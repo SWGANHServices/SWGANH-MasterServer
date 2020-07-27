@@ -3,6 +3,7 @@ using System;
 using SWGANH_Core.PackageParser;
 using SWGANH_MasterServer.Services;
 using SWGANH_MasterServer.Business;
+using SWGANH_Core;
 
 namespace SWGANH_MasterServer
 {
@@ -13,9 +14,9 @@ namespace SWGANH_MasterServer
             var configServices = ConfigurationService.CreateInstance(serviceDescriptors =>
             {
                 serviceDescriptors.AddSingleton<IPackageParser, PackageParser>();
-                serviceDescriptors.AddSingleton<IPackageDispatcher, PackageDispatcher>();
+                //serviceDescriptors.AddSingleton<IPackageDispatcher, PackageDispatcher>();
 
-                serviceDescriptors.AddScoped<ServerConnectionHandler>();
+                serviceDescriptors.AddScoped<ConnectionHandlerBase<NetworkConnection>, ServerConnectionHandler>();
                 serviceDescriptors.AddSingleton<NetworkService>();
                 serviceDescriptors.AddSingleton<IAuthStore, AuthStore>();
 
@@ -25,7 +26,7 @@ namespace SWGANH_MasterServer
             });
 
             configServices.ServiceProvider.GetRequiredService<NetworkService>().Start();
-            configServices.ServiceProvider.GetRequiredService<IPackageDispatcher>().Start();
+            //configServices.ServiceProvider.GetRequiredService<IPackageDispatcher>().Start();
             Console.ReadLine();
         }
     }
