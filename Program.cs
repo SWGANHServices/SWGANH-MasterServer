@@ -17,8 +17,10 @@ namespace SWGANH_MasterServer
 
                 serviceDescriptors.AddScoped<ServerConnectionHandler>();
                 serviceDescriptors.AddSingleton<NetworkService>();
+                serviceDescriptors.AddSingleton<IAuthStore, AuthStore>();
 
                 serviceDescriptors.AddScoped<IUserRepository, UserRepository>();
+                serviceDescriptors.AddScoped<ICharacterRepositiory, CharacterRepository>();
 
             });
 

@@ -13,13 +13,20 @@ namespace SWGANH_MasterServer.Services
         private readonly ILogger<ServerConnectionHandler> logger;
         private readonly IPackageParser packageParser;
         private readonly IUserRepository UserRepo;
+        private readonly ICharacterRepositiory CharacterRepo;
+        private readonly IAuthStore authStore;
 
-        public ServerConnectionHandler(ILogger<ServerConnectionHandler> logger, IPackageParser packageParser,
-            IUserRepository UserRepo)
+        public ServerConnectionHandler(ILogger<ServerConnectionHandler> logger, 
+            IPackageParser packageParser,
+            IUserRepository UserRepo,
+            ICharacterRepositiory CharacterRepo,
+            IAuthStore authStore)
         {
             this.logger = logger;
             this.packageParser = packageParser;
             this.UserRepo = UserRepo;
+            this.CharacterRepo = CharacterRepo;
+            this.authStore = authStore;
         }
 
 
@@ -65,5 +72,30 @@ namespace SWGANH_MasterServer.Services
                 RealmID = (int)parsedObjectData.RealmID,
             }, connection.Writer);
         }
+
+        [PackageHandler(CommunicationPackage.CHAR_REQUEST)]
+        public void HandleCharacterCreation(ClientConnection connection, CharacterCreationRequestPackage parsedObjectData)
+        {
+            logger.LogInformation($"Character Creation Request From {authStore[connection.ConnectionId]}");
+            if(CharacterRepo.CharExists(parsedObjectData.CharName))
+            {
+                logger.LogInformation($"Character Creation Something Went Wrong");
+                packageParser.ParserPackageToStream(new CharacterCreationResponsePackage
+                {
+                    IsValid = false
+                }, connection.Writer);
+                return;
+            }
+            else
+            {
+                CharacterRepo.SaveCharacterToDb(authStore[connection.ConnectionId], parsedObjectData.CharName, parsedObjectData.UmaRecipe);
+                logger.LogInformation($"Character Creation Sucessful");
+                packageParser.ParserPackageToStream(new CharacterCreationResponsePackage
+                {
+                    IsValid = true
+                }, connection.Writer);
+            }
+        }
+
     }
 }

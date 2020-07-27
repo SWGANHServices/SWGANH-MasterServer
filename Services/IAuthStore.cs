@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SWGANH_MasterServer.Services
 {
-    interface IAuthStore
+    public interface IAuthStore
     {
         int this[Guid guid] { get; }
         void Add(Guid guid, int id);

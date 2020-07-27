@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SWGANH_MasterServer.Services
 {
-    class AuthStore : IAuthStore
+    public class AuthStore : IAuthStore
     {
         private Dictionary<Guid, int> AuthClients = new Dictionary<Guid, int>();
 
